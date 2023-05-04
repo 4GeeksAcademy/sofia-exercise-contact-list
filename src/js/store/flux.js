@@ -16,15 +16,9 @@ const getState = ({ getStore, setStore }) => {
 					agenda_slug: "sofia18",
 					address: address,
 					phone: phone
-
-					// full_name: fullName,
-					// agenda_slug: "sofia18",
-					// email: email,
-					// phone: phone,
-					// address: address
 				};
 
-				// esta seria la urla donde se haria el POST(con su metodo,tipo de dato y cuerpo)
+				// esta seria la url a donde se haria el POST(con su metodo,tipo de dato y cuerpo)
 				fetch("https://assets.breatheco.de/apis/fake/contact/", {
 					method: "POST",
 					body: JSON.stringify(_datos),
@@ -52,7 +46,12 @@ const getState = ({ getStore, setStore }) => {
 					headers: { "Content-type": "application/json; charset=UTF-8" }
 				})
 					.then(response => response.json())
-					.then(data => console.log(data))
+					.then(data => {
+						if (data.msg === "ok") {
+							data;
+							actions.searchContact();
+						}
+					})
 					.catch(err => console.log(err));
 			},
 
