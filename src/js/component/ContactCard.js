@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
-import { Contacts } from "../views/Contacts";
-import { AddContact } from "../views/AddContact";
+//import { Contacts } from "../views/Contacts";
+//import { AddContact } from "../views/AddContact";
+import { Context } from "../store/appContext.js";
 
 export const ContactCard = props => {
 	console.log(props);
 	const [state, setState] = useState({
 		//initialize state here
 	});
+
+	const { actions } = useContext(Context);
 
 	return (
 		<li className="list-group-item">
@@ -19,17 +22,20 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<button className="btn">
+						<button className="btn" onClick={() => props.edit()}>
+							{/* // boton para editar contacto */}
 							<i className="fas fa-pencil-alt mr-3" />
 						</button>
-						<button className="btn" onClick={() => props.onDelete()}>
+						<button className="btn" onClick={() => actions.deleteContact(props.id)}>
+							{/* //boton eliminar contacto */}
 							<i className="fas fa-trash-alt" />
 						</button>
 					</div>
 					<label className="name lead">{props.full_name} </label>
 					<br />
 					<i className="fas fa-map-marker-alt text-muted mr-3" />
-					<span className="text-muted">5842 Hillcrest Rd</span>
+					<span className="text-muted">{props.address}</span>
+					{/* // addres */}
 					<br />
 					<span
 						className="fa fa-phone fa-fw text-muted mr-3"
@@ -37,7 +43,7 @@ export const ContactCard = props => {
 						title=""
 						data-original-title="(870) 288-4149"
 					/>
-					<span className="text-muted small">(870) 288-4149</span>
+					<span className="text-muted small">{props.phone}</span>
 					<br />
 					<span
 						className="fa fa-envelope fa-fw text-muted mr-3"
@@ -59,7 +65,12 @@ export const ContactCard = props => {
 ContactCard.propTypes = {
 	history: PropTypes.object,
 	onDelete: PropTypes.func,
-	full_name: PropTypes.string
+	full_name: PropTypes.string,
+	edit: PropTypes.func,
+	phone: PropTypes.string,
+	address: PropTypes.string,
+	email: PropTypes.string,
+	id: PropTypes.string
 };
 
 /**
