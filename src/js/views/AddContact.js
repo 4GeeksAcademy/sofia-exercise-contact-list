@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const AddContact = props => {
-	const { actions } = useContext(Context);
+	const { actions } = useContext(Context); //activar el componente useContext lo que hara sera desempacar el objeto que le estamos trayendo, en este caso seria {contacts}
 
-	//declareacion de estados
+	//declaracion de estados
 	const [fullName, setFullName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
