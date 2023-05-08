@@ -2,12 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
-//import { Contacts } from "../views/Contacts";
-//import { AddContact } from "../views/AddContact";
 import { Context } from "../store/appContext.js";
 
 export const ContactCard = props => {
 	console.log(props);
+
 	const [state, setState] = useState({
 		//initialize state here
 	});
@@ -26,7 +25,8 @@ export const ContactCard = props => {
 							{/* // boton para editar contacto */}
 							<i className="fas fa-pencil-alt mr-3" />
 						</button>
-						<button className="btn" onClick={() => actions.deleteContact(props.id)}>
+
+						<button className="btn" onClick={() => props.onDelete()}>
 							{/* //boton eliminar contacto */}
 							<i className="fas fa-trash-alt" />
 						</button>

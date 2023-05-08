@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { ContactCard } from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
+import { ModalEdit } from "../component/ModalEdit.js";
 import { Context } from "../store/appContext.js";
 
 export const Contacts = () => {
 	const { store, actions } = useContext(Context);
 
 	const [state, setState] = useState({
-		showModal: false
+		showModal: false,
+		id: undefined
 	});
+
+	const [edit, setEdit] = useState({
+		showModal: false,
+		id: undefined
+	});
+
 	// useEffect funciona como el onload y ejecuta el codigo que tiene dentro ni bien se cague el componente
 	useEffect(() => {
 		actions.searchContact();
@@ -34,18 +41,15 @@ export const Contacts = () => {
 								phone={item.phone}
 								email={item.email}
 								key={index}
-								onDelete={() => setState({ showModal: true })}
+								onDelete={() => setState({ showModal: true, id: item.id })}
+								edit={() => setEdit({ showModal: true, id: item.id })}
 							/>
 						))}
-
-						{/* <ContactCard onDelete={() => setState({ showModal: true })} />
-						<ContactCard />
-						<ContactCard />
-						<ContactCard /> */}
 					</ul>
 				</div>
 			</div>
-			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
+			<Modal id={state.id} show={state.showModal} onClose={() => setState({ showModal: false })} />
+			<ModalEdit id={edit.id} show={edit.showModal} onClose={() => setEdit({ showModal: false })} />
 		</div>
 	);
 };

@@ -1,3 +1,5 @@
+import { objectOf } from "prop-types";
+
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
@@ -13,7 +15,7 @@ const getState = ({ getStore, setStore }) => {
 			/////////////////////// funcion de agregar un nuevo contacto POST
 			addNew: (fullName, email, phone, address) => {
 				//console.log(fullName, email, phone, address);
-				let _data = {
+				let _datos = {
 					full_name: fullName,
 					email: email,
 					agenda_slug: "sofia18",
@@ -26,10 +28,10 @@ const getState = ({ getStore, setStore }) => {
 					//caracteristicas de la peticion que voy a mandar(metodo,body,)
 					method: "POST",
 					headers: { "Content-type": "application/json; charset=UTF-8" },
-					body: JSON.stringify(_data) //_datos es la variable con todos los valores que declaramos arriba(linea14)
+					body: JSON.stringify(_datos) //_datos es la variable con todos los valores que declaramos arriba(linea14)
 				}) //estas serian las promesas
 					.then(response => response.json()) //trae un arespuesta y la convierte a json
-					.then(_data => console.log(_data)) /// esa respuesta la voy a guardar en un espacio de memoria que se llame "data" que a su vez se convertira en un objeto.
+					.then(data => console.log(data)) /// esa respuesta la voy a guardar en un espacio de memoria que se llame "data" que a su vez se convertira en un objeto.
 					.catch(err => console.log(err)); //// si sale algo mal en alguno de los dos primeros pasos, aqui te mostraria el error.
 			},
 
@@ -43,23 +45,19 @@ const getState = ({ getStore, setStore }) => {
 			},
 
 			//////DELETE CONTACTS
-			deleteContact: id => {
+			onDelete: id => {
 				fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
 					method: "DELETE",
 					headers: { "Content-type": "application/json; charset=UTF-8" }
 				})
 					.then(response => response.json())
-					.then(_data => {
-						if (_data.msg === "ok") {
-							actions.searchContact(); // actualizar la lista de contactos
-						}
-					})
+					.then(data => console.log(data))
 					.catch(err => console.log(err));
 			},
 
 			//////////EDITAR CONTACTOS / O ACTUALIZAR CONTACTOS PUT
 			editContact: (fullName, email, phone, adress, id) => {
-				let _data = {
+				let _datos = {
 					full_name: fullName,
 					email: email,
 					agenda_slug: "sofia18",
@@ -70,11 +68,11 @@ const getState = ({ getStore, setStore }) => {
 				// urlr de fetch
 				fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
 					method: "PUT",
-					body: JSON.stringify(_data),
+					body: JSON.stringify(_datos),
 					headers: { "Content-type": "application/json; charset=UTF-8" }
 				}) // ésta son las promesas
 					.then(response => response.json())
-					.then(_data => console.log(_data))
+					.then(data => console.log(data))
 					.catch(err => console.log(err));
 			}
 		}
